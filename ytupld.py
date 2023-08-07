@@ -94,7 +94,8 @@ def initialize_upload(youtube, options):
       categoryId=options.category
     ),
     status=dict(
-      privacyStatus=options.privacyStatus
+      privacyStatus=options.privacyStatus,
+      publishAt=time.strftime("%Y-%m-%dT18:00+00:00")
     )
   )
 
