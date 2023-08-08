@@ -121,7 +121,7 @@ def initialize_upload(youtube, options):
 
 def lickvid(youtube, yd):
   # Call the API's videos.insert method to create and upload the video.
-   lik_req = youtube.videos().rate(
+    lik_req = youtube.videos().rate(
         id=yd,
         rating="like"
     )
