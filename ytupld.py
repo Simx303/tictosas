@@ -117,11 +117,19 @@ def initialize_upload(youtube, options):
     media_body=MediaFileUpload(options.file, chunksize=-1, resumable=True)
   )
 
-  resumable_upload(insert_request)
+  resumable_upload(insert_request, youtube)
+
+def lickvid(youtube, yd):
+  # Call the API's videos.insert method to create and upload the video.
+   lik_req = youtube.videos().rate(
+        id=yd,
+        rating="like"
+    )
+    lik_req.execute()
 
 # This method implements an exponential backoff strategy to resume a
 # failed upload.
-def resumable_upload(insert_request):
+def resumable_upload(insert_request, ytc):
   response = None
   error = None
   retry = 0
@@ -132,6 +140,7 @@ def resumable_upload(insert_request):
       if response is not None:
         if 'id' in response:
           print("Video id '%s' was successfully uploaded." % response['id'])
+          lickvid(ytc, response['id'])
         else:
           exit("The upload failed with an unexpected response: %s" % response)
     except HttpError as e:
